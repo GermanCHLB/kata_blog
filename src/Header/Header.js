@@ -1,23 +1,37 @@
 import React from 'react';
 import classes from './Header.module.scss'
-import avatar from '../img/Rectangle 1.svg'
+import {useDispatch, useSelector} from "react-redux";
+import {Link} from "react-router-dom";
+import {logOutAction} from "../reducer";
 
-const Header = ({isAuthorized}) => {
+const Header = () => {
+  const isAuthorized = useSelector(state => state.isAuthorized)
+  const avatar = useSelector(state => state.user.image)
+  const username = useSelector(state => state.user.username)
+  const dispatch = useDispatch();
   return (
     <header className={classes.Header}>
-      <h3 className={classes.title}>Realworld Blog</h3>
+      <h3 className={classes.title}><Link to={'/articles'}>Realworld Blog</Link></h3>
       {isAuthorized
         ? <div className={classes.menu}>
           <button className={classes['create-btn']}>Create article</button>
           <div className={classes.profile}>
-            <span className={classes.username}>name</span>
-            <img src={avatar} alt="" />
+            <Link to={'/profile'}>
+              <span className={classes.username}>{username}</span>
+              <img src={avatar} alt="" />
+            </Link>
           </div>
-          <button className={classes['logOut-btn']}>Log Out</button>
+          <button
+            className={classes['logOut-btn']}
+            onClick={() => {
+              dispatch(logOutAction())
+              localStorage.removeItem('user')
+            }}
+          >Log Out</button>
         </div>
         : <div className={classes.menu}>
-          <button className={classes['signIn-btn']}>Sign In</button>
-          <button className={classes['signUp-btn']}>Sign Up</button>
+          <Link to={'/sign-in'} className={classes['signIn-btn']}>Sign In</Link>
+          <Link to={'/sign-up'} className={classes['signUp-btn']}>Sign Up</Link>
         </div>
       }
     </header>

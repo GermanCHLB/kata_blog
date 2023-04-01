@@ -15,6 +15,7 @@ const ArticlesList = ({articles}) => {
         slug={el.slug}
         text=''
         img={el.author.image}
+        liked={el.favorited}
       /></li>)}
     </ul>
   );

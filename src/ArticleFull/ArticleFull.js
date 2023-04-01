@@ -1,14 +1,14 @@
 import React from 'react';
-import classes from './Article.module.scss'
+import classes from './ArticleFull.module.scss'
 import heart from "../img/Vector.svg"
-import heartLiked from "../img/path4.svg"
 import {Link} from "react-router-dom";
 import {compiler} from "markdown-to-jsx";
 import {format} from "date-fns";
+import heartLiked from "../img/path4.svg";
 import {useDispatch, useSelector} from "react-redux";
 import {removeLike, setLike} from "../asyncActions/articles";
 
-const Article = ({title, likes, username, date, description, tags, slug, text, img, liked}) => {
+const ArticleFull = ({title, likes, username, date, description, tags, slug, text, img, liked}) => {
   const dateFormatted = format(new Date(date), 'PP')
   const isAuthorized = useSelector(state => state.isAuthorized)
   const token = useSelector(state => state.user.token)
@@ -69,14 +69,12 @@ const Article = ({title, likes, username, date, description, tags, slug, text, i
       </div>
       <div className={classes.body}>
         <p className={classes.description}>{description}</p>
-        {text.length !== 0
-          ?
-          <p className={classes.text}>{compiler(text.split('\\n').join('\n\n'), {wrapper: null})}</p>
-          : ''
-        }
+          <p className={classes.text}>
+            {compiler(text.split('\\n').join('\n\n'), {wrapper: null})}
+          </p>
       </div>
     </div>
   );
 };
 
-export default Article;
+export default ArticleFull;

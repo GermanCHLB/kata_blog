@@ -15,6 +15,10 @@
   font-size: 18px;
   line-height: 28px;
   font-weight: normal;
+  a {
+    text-decoration: none;
+    color: rgba(0, 0, 0, 0.85)
+  }
 }
 
 .create-btn {
@@ -45,6 +49,8 @@
   background: none;
   font-size: 18px;
   line-height: 28px;
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.85)
 }
 
 .signUp-btn {
@@ -56,19 +62,28 @@
   background: none;
   border-radius: 5px;
   padding: 6px 18px;
+  text-decoration: none;
+  display: inline-block;
 }
 
 .profile {
   margin-left: 27px;
-  display: inline-flex;
-  justify-content: space-between;
-  align-items: center;
+  display: inline-block;
+  a {
+    display: inline-flex;
+    justify-content: space-between;
+    align-items: center;
+    text-decoration: none;
+    .username {
+      margin-right: 13px;
+      color: rgba(0, 0, 0, 0.85);
+    }
 
-  .username {
-    margin-right: 13px;
+    img {
+      width: 46px;
+      height: 46px;
+    }
   }
 
-  img {
 
-  }
 }

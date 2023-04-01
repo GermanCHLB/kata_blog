@@ -4,16 +4,18 @@ import Article from "../Article/Article";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchArticle} from "../asyncActions/articles";
 import Loader from "../Loader/Loader";
+import ArticleFull from "../ArticleFull/ArticleFull";
 const ArticlePage = ({slug}) => {
   const dispatch = useDispatch();
   const isLoading = useSelector(state => state.isLoading)
   const data = useSelector(state => state.articleData)
+  const token = useSelector(state => state.user.token)
 
   if (data === '' || slug !== data.slug) {
-    dispatch(fetchArticle(slug))
+    dispatch(fetchArticle(slug, token))
   }
 
-  if (isLoading) {
+  if (isLoading || data === '') {
     return (
       <Loader/>
     )
@@ -21,7 +23,7 @@ const ArticlePage = ({slug}) => {
 
   return (
     <div className={classes.ArticlePage}>
-      <Article
+      <ArticleFull
         text={data.body}
         description={data.description}
         title={data.title}
@@ -30,6 +32,8 @@ const ArticlePage = ({slug}) => {
         username={data.author.username}
         date={data.updatedAt}
         img={data.author.image}
+        liked={data.favorited}
+        slug={data.slug}
       />
     </div>
   );

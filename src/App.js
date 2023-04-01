@@ -3,11 +3,19 @@ import Header from "./Header/Header";
 import ArticlesPage from "./ArticlesPage/ArticlesPage";
 
 import {BrowserRouter as Router, Route} from "react-router-dom";
-import {useSelector} from "react-redux";
 import ArticlePage from "./ArticlePage/ArticlePage";
+import SignUpPage from "./SignUpPage/SignUpPage";
+import SignInPage from "./SignInPage/SignInPage";
+import ProfilePage from "./ProfilePage/ProfilePage";
+import {useDispatch} from "react-redux";
+import {setUserAction} from "./reducer";
 
 function App() {
-  const articles = useSelector(state => state.articles);
+  const dispatch = useDispatch();
+  const userData = localStorage.getItem('user');
+  if (userData !== null) {
+    dispatch(setUserAction(JSON.parse(userData)))
+  }
 
   return (
     <Router>
@@ -22,6 +30,9 @@ function App() {
             return <ArticlePage slug={slug}/>
           }}
         />
+        <Route path={'/sign-up'} component={SignUpPage}/>
+        <Route path={'/sign-in'} component={SignInPage}/>
+        <Route path={'/profile'} component={ProfilePage}/>
       </div>
     </Router>
   );
