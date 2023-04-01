@@ -1,12 +1,14 @@
-import React from 'react';
+import React from 'react'
+import { Spin } from 'antd'
+
 import classes from './Loader.module.scss'
-import {Spin} from "antd";
+
 const Loader = () => {
   return (
     <div className={classes.Loader}>
-      <Spin/>
+      <Spin />
     </div>
-  );
-};
+  )
+}
 
-export default Loader;
+export default Loader

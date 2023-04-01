@@ -1,5 +1,5 @@
 const defaultState = {
-  totalCount : 0,
+  totalCount: 0,
   totalPages: 0,
   page: 1,
   articles: [],
@@ -13,23 +13,23 @@ const defaultState = {
     token: '',
     username: '',
     bio: '',
-    image: ''
-  }
+    image: '',
+  },
 }
 
-const GET_DATA = 'GET_DATA';
-const CHANGE_PAGE = 'CHANGE_PAGE';
-const START_LOADING = 'START_LOADING';
-const GET_ARTICLE_DATA = 'GET_ARTICLE_DATA';
-const SIGN_IN = 'SIGN_IN';
-const SIGN_UP = 'SIGN_UP';
-const SET_USER = 'SET_USER';
-const LOG_OUT = 'LOG_OUT';
-const SET_ERROR = 'SET_ERROR';
-const SET_LIKE = 'SET_LIKE';
-const CREATE_ARTICLE = 'CREATE_ARTICLE';
-const DELETE_ARTICLE = 'DELETE_ARTICLE';
-const EDIT_ARTICLE = 'EDIT_ARTICLE';
+const GET_DATA = 'GET_DATA'
+const CHANGE_PAGE = 'CHANGE_PAGE'
+const START_LOADING = 'START_LOADING'
+const GET_ARTICLE_DATA = 'GET_ARTICLE_DATA'
+const SIGN_IN = 'SIGN_IN'
+const SIGN_UP = 'SIGN_UP'
+const SET_USER = 'SET_USER'
+const LOG_OUT = 'LOG_OUT'
+const SET_ERROR = 'SET_ERROR'
+const SET_LIKE = 'SET_LIKE'
+const CREATE_ARTICLE = 'CREATE_ARTICLE'
+const DELETE_ARTICLE = 'DELETE_ARTICLE'
+const EDIT_ARTICLE = 'EDIT_ARTICLE'
 
 export const reducer = (state = defaultState, action) => {
   switch (action.type) {
@@ -38,14 +38,14 @@ export const reducer = (state = defaultState, action) => {
         ...state,
         articles: action.payload.articles,
         totalCount: action.payload.articlesCount,
-        totalPages: Math.ceil(action.payload.articlesCount/5),
+        totalPages: Math.ceil(action.payload.articlesCount / 5),
         isLoading: false,
       }
 
     case CHANGE_PAGE:
       return {
         ...state,
-        page: action.payload
+        page: action.payload,
       }
 
     case START_LOADING:
@@ -67,7 +67,7 @@ export const reducer = (state = defaultState, action) => {
         user: {
           status: 'OK',
           errorMessage: '',
-          ...action.payload.user
+          ...action.payload.user,
         },
         isAuthorized: true,
       }
@@ -78,7 +78,7 @@ export const reducer = (state = defaultState, action) => {
         user: {
           status: 'OK',
           errorMessage: '',
-          ...action.payload.user
+          ...action.payload.user,
         },
         isAuthorized: true,
       }
@@ -89,7 +89,7 @@ export const reducer = (state = defaultState, action) => {
         user: {
           status: 'OK',
           errorMessage: '',
-          ...action.payload.user
+          ...action.payload.user,
         },
         isAuthorized: true,
       }
@@ -101,7 +101,7 @@ export const reducer = (state = defaultState, action) => {
           status: '',
           errorMessage: '',
         },
-        isAuthorized: false
+        isAuthorized: false,
       }
 
     case SET_ERROR:
@@ -109,44 +109,44 @@ export const reducer = (state = defaultState, action) => {
         ...state,
         user: {
           ...state.user,
-          status: 'ERROR'
-        }
+          status: 'ERROR',
+        },
       }
 
     case SET_LIKE:
       return {
         ...state,
-        articles: state.articles.map(el => {
+        articles: state.articles.map((el) => {
           if (el.slug === action.payload.slug) {
             return action.payload
           } else {
             return el
           }
-        })
+        }),
       }
 
     case CREATE_ARTICLE:
       return {
         ...state,
-        articles: [action.payload, ...state.articles]
+        articles: [action.payload, ...state.articles],
       }
 
     case DELETE_ARTICLE:
       return {
         ...state,
-        articles: state.articles.filter(el => el.slug !== action.payload)
+        articles: state.articles.filter((el) => el.slug !== action.payload),
       }
 
     case EDIT_ARTICLE:
       return {
         ...state,
-        articles: state.articles.map(el => {
+        articles: state.articles.map((el) => {
           if (el.slug === action.payload.slug) {
             return action.payload.data.article
           } else {
             return el
           }
-        })
+        }),
       }
 
     default:
@@ -154,16 +154,16 @@ export const reducer = (state = defaultState, action) => {
   }
 }
 
-export const getDataAction = (payload) => ({type: GET_DATA, payload})
-export const changePageAction = (payload) => ({type: CHANGE_PAGE, payload})
-export const startLoadingAction = () => ({type: START_LOADING})
-export const getArticleDataAction = (payload) => ({type: GET_ARTICLE_DATA, payload})
-export const signInAction = (payload) => ({type: SIGN_IN, payload})
-export const signUpAction = (payload) => ({type: SIGN_UP, payload})
-export const setUserAction = (payload) => ({type: SET_USER, payload})
-export const logOutAction = () => ({type: LOG_OUT})
-export const setErrorAction = () => ({type: SET_ERROR})
-export const setLikeAction = (payload) => ({type: SET_LIKE, payload})
-export const createArticleAction = (payload) => ({type: CREATE_ARTICLE, payload})
-export const deleteArticleAction = (payload) => ({type: DELETE_ARTICLE, payload})
-export const editArticleAction = (payload) => ({type: EDIT_ARTICLE, payload})
+export const getDataAction = (payload) => ({ type: GET_DATA, payload })
+export const changePageAction = (payload) => ({ type: CHANGE_PAGE, payload })
+export const startLoadingAction = () => ({ type: START_LOADING })
+export const getArticleDataAction = (payload) => ({ type: GET_ARTICLE_DATA, payload })
+export const signInAction = (payload) => ({ type: SIGN_IN, payload })
+export const signUpAction = (payload) => ({ type: SIGN_UP, payload })
+export const setUserAction = (payload) => ({ type: SET_USER, payload })
+export const logOutAction = () => ({ type: LOG_OUT })
+export const setErrorAction = () => ({ type: SET_ERROR })
+export const setLikeAction = (payload) => ({ type: SET_LIKE, payload })
+export const createArticleAction = (payload) => ({ type: CREATE_ARTICLE, payload })
+export const deleteArticleAction = (payload) => ({ type: DELETE_ARTICLE, payload })
+export const editArticleAction = (payload) => ({ type: EDIT_ARTICLE, payload })

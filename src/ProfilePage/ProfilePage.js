@@ -1,13 +1,15 @@
-import React from 'react';
+import React from 'react'
+
+import ProfileForm from '../ProfileForm/ProfileForm'
+
 import classes from './ProfilePage.module.scss'
-import ProfileForm from "../ProfileForm/ProfileForm";
 
 const ProfilePage = () => {
   return (
     <div className={classes.ProfilePage}>
-      <ProfileForm/>
+      <ProfileForm />
     </div>
-  );
-};
+  )
+}
 
-export default ProfilePage;
+export default ProfilePage

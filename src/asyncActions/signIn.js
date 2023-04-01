@@ -1,4 +1,4 @@
-import {setErrorAction, signInAction} from "../reducer";
+import { setErrorAction, signInAction } from '../reducer'
 
 export const fetchSignIn = (data) => {
   const user = {
@@ -9,22 +9,22 @@ export const fetchSignIn = (data) => {
     fetch('https://api.realworld.io/api/users/login', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json;charset=utf-8'
+        'Content-Type': 'application/json;charset=utf-8',
       },
-      body: JSON.stringify({user: user})
+      body: JSON.stringify({ user: user }),
     })
-      .then(res => {
+      .then((res) => {
         if (res.ok) {
-          return(res.json())
+          return res.json()
         } else {
           dispatch(setErrorAction())
         }
       })
-      .then(json => {
+      .then((json) => {
         dispatch(signInAction(json))
         localStorage.setItem('user', JSON.stringify(json))
       })
-      .catch(err => {
+      .catch((err) => {
         throw new Error(err)
       })
   }

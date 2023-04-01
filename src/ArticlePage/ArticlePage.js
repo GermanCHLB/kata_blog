@@ -1,23 +1,23 @@
-import React from 'react';
+import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+
+import { fetchArticle } from '../asyncActions/articles'
+import Loader from '../Loader/Loader'
+import ArticleFull from '../ArticleFull/ArticleFull'
+
 import classes from './ArticlePage.module.scss'
-import {useDispatch, useSelector} from "react-redux";
-import {fetchArticle} from "../asyncActions/articles";
-import Loader from "../Loader/Loader";
-import ArticleFull from "../ArticleFull/ArticleFull";
-const ArticlePage = ({slug}) => {
-  const dispatch = useDispatch();
-  const isLoading = useSelector(state => state.isLoading)
-  const data = useSelector(state => state.articleData)
-  const token = useSelector(state => state.user.token)
+const ArticlePage = ({ slug }) => {
+  const dispatch = useDispatch()
+  const isLoading = useSelector((state) => state.isLoading)
+  const data = useSelector((state) => state.articleData)
+  const token = useSelector((state) => state.user.token)
 
   if (data === '' || slug !== data.slug) {
     dispatch(fetchArticle(slug, token))
   }
 
   if (isLoading || data === '') {
-    return (
-      <Loader/>
-    )
+    return <Loader />
   }
 
   return (
@@ -35,7 +35,7 @@ const ArticlePage = ({slug}) => {
         slug={data.slug}
       />
     </div>
-  );
-};
+  )
+}
 
-export default ArticlePage;
+export default ArticlePage

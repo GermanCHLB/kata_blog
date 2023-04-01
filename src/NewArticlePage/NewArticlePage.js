@@ -1,12 +1,15 @@
-import React from 'react';
+import React from 'react'
+
+import NewArticleForm from '../NewArticleForm/NewArticleForm'
+
 import classes from './NewArticlePage.module.scss'
-import NewArticleForm from "../NewArticleForm/NewArticleForm";
+
 const NewArticlePage = () => {
   return (
     <div className={classes.NewArticlePage}>
-      <NewArticleForm/>
+      <NewArticleForm />
     </div>
-  );
-};
+  )
+}
 
-export default NewArticlePage;
+export default NewArticlePage

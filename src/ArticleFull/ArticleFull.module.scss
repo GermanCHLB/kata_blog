@@ -40,7 +40,7 @@
 
           .likes-counter {
             margin-left: 5px;
-            color: rgba(0, 0, 0, 0.75)
+            color: rgba(0, 0, 0, 0.75);
           }
         }
       }
@@ -75,7 +75,7 @@
         .date {
           font-size: 12px;
           line-height: 22px;
-          color: rgba(0, 0, 0, 0.5)
+          color: rgba(0, 0, 0, 0.5);
         }
       }
 
@@ -141,7 +141,6 @@
               }
             }
 
-
             .modal-btns {
               margin-top: 12px;
               margin-left: 50px;
@@ -172,7 +171,7 @@
             &::before {
               content: '';
               position: absolute;
-              background-image: url("../img/arrow.svg");
+              background-image: url('../img/arrow.svg');
               left: -6px;
               width: 6px;
               height: 12px;
@@ -199,7 +198,6 @@
           margin-left: 12px;
           cursor: pointer;
           text-decoration: none;
-
         }
       }
     }

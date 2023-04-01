@@ -1,4 +1,4 @@
-import {signUpAction} from "../reducer";
+import { signUpAction } from '../reducer'
 
 export const fetchSignUp = (data) => {
   const user = {
@@ -10,15 +10,15 @@ export const fetchSignUp = (data) => {
     fetch('https://api.realworld.io/api/users', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json;charset=utf-8'
+        'Content-Type': 'application/json;charset=utf-8',
       },
-      body: JSON.stringify({user: user})
+      body: JSON.stringify({ user: user }),
     })
-      .then(res => res.json())
-      .then(json => {
+      .then((res) => res.json())
+      .then((json) => {
         dispatch(signUpAction(json))
         localStorage.setItem('user', JSON.stringify(json))
       })
-      .catch(err => console.log(err.body))
+      .catch((err) => console.log(err.body))
   }
 }

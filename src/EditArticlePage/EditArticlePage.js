@@ -1,12 +1,15 @@
-import React from 'react';
+import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+
+import NewArticleForm from '../NewArticleForm/NewArticleForm'
+import { fetchArticle } from '../asyncActions/articles'
+
 import classes from './EditArticlePage.module.scss'
-import NewArticleForm from "../NewArticleForm/NewArticleForm";
-import {fetchArticle} from "../asyncActions/articles";
-import {useDispatch, useSelector} from "react-redux";
-const EditArticlePage = ({slug}) => {
-  const token = useSelector(state => state.user.token)
-  const dispatch = useDispatch();
-  const data = useSelector(state => state.articleData)
+
+const EditArticlePage = ({ slug }) => {
+  const token = useSelector((state) => state.user.token)
+  const dispatch = useDispatch()
+  const data = useSelector((state) => state.articleData)
 
   if (data === '') {
     dispatch(fetchArticle(slug, token))
@@ -23,7 +26,7 @@ const EditArticlePage = ({slug}) => {
         tagsInit={data.tagList}
       />
     </div>
-  );
-};
+  )
+}
 
-export default EditArticlePage;
+export default EditArticlePage

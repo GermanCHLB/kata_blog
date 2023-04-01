@@ -1,36 +1,56 @@
-import React, {useEffect, useState} from 'react';
+import React, { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { useDispatch, useSelector } from 'react-redux'
+import { Redirect } from 'react-router-dom'
+
+import { createArticle, editArticle } from '../asyncActions/articles'
+
 import classes from './NewArticleForm.module.scss'
-import {useForm} from "react-hook-form";
-import {createArticle, editArticle} from "../asyncActions/articles";
-import {useDispatch, useSelector} from "react-redux";
-import {Redirect} from "react-router-dom";
-const NewArticleForm = ({textInit = '', descriptionInit = '', tagsInit = [], titleInit = '', isEdit = false, slug}) => {
-  const {register, handleSubmit, reset, formState: {errors}} = useForm({mode: 'onChange'})
-  const [tags, setTags] = useState(tagsInit);
-  const [title, setTitle] = useState(titleInit);
-  const [text, setText] = useState(textInit);
+const NewArticleForm = ({
+  textInit = '',
+  descriptionInit = '',
+  tagsInit = [],
+  titleInit = '',
+  isEdit = false,
+  slug,
+}) => {
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm({ mode: 'onChange' })
+  const [tags, setTags] = useState(tagsInit)
+  const [title, setTitle] = useState(titleInit)
+  const [text, setText] = useState(textInit)
   const [description, setDescription] = useState(descriptionInit)
-  const token = useSelector(state => state.user.token)
+  const token = useSelector((state) => state.user.token)
   const dispatch = useDispatch()
   const [isSended, setIsSended] = useState(false)
 
   const onSubmit = (data) => {
     if (isEdit) {
-      dispatch(editArticle(slug, token, {
-        title: data.Title,
-        description: data.Description,
-        text: data.Text,
-        tags: tags,
-      }))
+      dispatch(
+        editArticle(slug, token, {
+          title: data.Title,
+          description: data.Description,
+          text: data.Text,
+          tags: tags,
+        })
+      )
     } else {
-      dispatch(createArticle({
-        title: data.Title,
-        description: data.Description,
-        text: data.Text,
-        tags: tags,
-      }, token))
+      dispatch(
+        createArticle(
+          {
+            title: data.Title,
+            description: data.Description,
+            text: data.Text,
+            tags: tags,
+          },
+          token
+        )
+      )
     }
-
 
     reset({
       Title: '',
@@ -44,9 +64,7 @@ const NewArticleForm = ({textInit = '', descriptionInit = '', tagsInit = [], tit
   }
 
   if (isSended) {
-    return (
-      <Redirect to={'/articles'}/>
-    )
+    return <Redirect to={'/articles'} />
   } else {
     return (
       <form className={classes.NewArticleForm} onSubmit={handleSubmit(onSubmit)}>
@@ -55,7 +73,8 @@ const NewArticleForm = ({textInit = '', descriptionInit = '', tagsInit = [], tit
           Title
           <input
             type="text"
-            placeholder='Title' value={title}
+            placeholder="Title"
+            value={title}
             className={errors.Title ? classes.error : ''}
             {...register('Title', {
               required: 'Title is required',
@@ -71,8 +90,8 @@ const NewArticleForm = ({textInit = '', descriptionInit = '', tagsInit = [], tit
           Short description
           <input
             type="text"
-            placeholder='Short description'
-            className={errors.Description ? classes.error : '' }
+            placeholder="Short description"
+            className={errors.Description ? classes.error : ''}
             {...register('Description', {
               required: 'Description is required',
             })}
@@ -87,8 +106,8 @@ const NewArticleForm = ({textInit = '', descriptionInit = '', tagsInit = [], tit
         <label>
           Text
           <textarea
-            placeholder='Text'
-            className={errors.Text ? classes.error : '' }
+            placeholder="Text"
+            className={errors.Text ? classes.error : ''}
             {...register('Text', {
               required: 'Text is required',
             })}
@@ -103,32 +122,39 @@ const NewArticleForm = ({textInit = '', descriptionInit = '', tagsInit = [], tit
         <label>
           Tags
           <ul className={classes.tags}>
-            {
-              tags.length === 0
-                ? <li className={classes.tag}>
-                  <button
-                    className={classes['addTag-btn']}
-                    onClick={e => {
-                      e.preventDefault()
-                      setTags([...tags, ''])
-                    }}
-                  >
-                    Add tag
-                  </button>
-                </li>
-
-                : tags.map((el, index) => {
-                  if (index !== tags.length - 1) {
-                    return<li className={classes.tag} key={index}>
-                      <input type='text' value={el} placeholder='Tag' onChange={(e) => {
-                        setTags(tags.map((el1, index1) => {
-                          if (index1 === index) {
-                            return e.target.value
-                          } else {
-                            return el1
-                          }
-                        }))
-                      }}/>
+            {tags.length === 0 ? (
+              <li className={classes.tag}>
+                <button
+                  className={classes['addTag-btn']}
+                  onClick={(e) => {
+                    e.preventDefault()
+                    setTags([...tags, ''])
+                  }}
+                >
+                  Add tag
+                </button>
+              </li>
+            ) : (
+              tags.map((el, index) => {
+                if (index !== tags.length - 1) {
+                  return (
+                    <li className={classes.tag} key={index}>
+                      <input
+                        type="text"
+                        value={el}
+                        placeholder="Tag"
+                        onChange={(e) => {
+                          setTags(
+                            tags.map((el1, index1) => {
+                              if (index1 === index) {
+                                return e.target.value
+                              } else {
+                                return el1
+                              }
+                            })
+                          )
+                        }}
+                      />
                       <button
                         className={classes['del-btn']}
                         onClick={(e) => {
@@ -139,17 +165,26 @@ const NewArticleForm = ({textInit = '', descriptionInit = '', tagsInit = [], tit
                         Delete
                       </button>
                     </li>
-                  } else {
-                    return <li className={classes.tag} key={index}>
-                      <input type='text' value={el} placeholder='Tag' onChange={(e) => {
-                        setTags(tags.map((el1, index1) => {
-                          if (index1 === index) {
-                            return e.target.value
-                          } else {
-                            return el1
-                          }
-                        }))
-                      }}/>
+                  )
+                } else {
+                  return (
+                    <li className={classes.tag} key={index}>
+                      <input
+                        type="text"
+                        value={el}
+                        placeholder="Tag"
+                        onChange={(e) => {
+                          setTags(
+                            tags.map((el1, index1) => {
+                              if (index1 === index) {
+                                return e.target.value
+                              } else {
+                                return el1
+                              }
+                            })
+                          )
+                        }}
+                      />
                       <button
                         className={classes['del-btn']}
                         onClick={(e) => {
@@ -161,7 +196,7 @@ const NewArticleForm = ({textInit = '', descriptionInit = '', tagsInit = [], tit
                       </button>
                       <button
                         className={classes['addTag-btn']}
-                        onClick={e => {
+                        onClick={(e) => {
                           e.preventDefault()
                           setTags([...tags, ''])
                         }}
@@ -169,18 +204,17 @@ const NewArticleForm = ({textInit = '', descriptionInit = '', tagsInit = [], tit
                         Add tag
                       </button>
                     </li>
-                  }
-                })
-            }
+                  )
+                }
+              })
+            )}
           </ul>
         </label>
 
-        <button className={classes['send-btn']}>
-          Send
-        </button>
+        <button className={classes['send-btn']}>Send</button>
       </form>
-    );
+    )
   }
-};
+}
 
-export default NewArticleForm;
+export default NewArticleForm
