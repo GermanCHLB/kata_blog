@@ -9,6 +9,8 @@ import SignInPage from "./SignInPage/SignInPage";
 import ProfilePage from "./ProfilePage/ProfilePage";
 import {useDispatch} from "react-redux";
 import {setUserAction} from "./reducer";
+import NewArticlePage from "./NewArticlePage/NewArticlePage";
+import EditArticlePage from "./EditArticlePage/EditArticlePage";
 
 function App() {
   const dispatch = useDispatch();
@@ -29,10 +31,19 @@ function App() {
             const {slug} = match.params;
             return <ArticlePage slug={slug}/>
           }}
+          exact
         />
         <Route path={'/sign-up'} component={SignUpPage}/>
         <Route path={'/sign-in'} component={SignInPage}/>
         <Route path={'/profile'} component={ProfilePage}/>
+        <Route path={'/new-article'} component={NewArticlePage}/>
+        <Route
+          path={'/articles/:slug/edit'}
+          render={({match}) => {
+            const {slug} = match.params
+            return <EditArticlePage slug={slug}/>
+          }}
+        />
       </div>
     </Router>
   );

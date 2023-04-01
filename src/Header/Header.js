@@ -14,7 +14,7 @@ const Header = () => {
       <h3 className={classes.title}><Link to={'/articles'}>Realworld Blog</Link></h3>
       {isAuthorized
         ? <div className={classes.menu}>
-          <button className={classes['create-btn']}>Create article</button>
+          <Link to={'/new-article'} className={classes['create-btn']}>Create article</Link>
           <div className={classes.profile}>
             <Link to={'/profile'}>
               <span className={classes.username}>{username}</span>

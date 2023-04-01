@@ -27,6 +27,9 @@ const SET_USER = 'SET_USER';
 const LOG_OUT = 'LOG_OUT';
 const SET_ERROR = 'SET_ERROR';
 const SET_LIKE = 'SET_LIKE';
+const CREATE_ARTICLE = 'CREATE_ARTICLE';
+const DELETE_ARTICLE = 'DELETE_ARTICLE';
+const EDIT_ARTICLE = 'EDIT_ARTICLE';
 
 export const reducer = (state = defaultState, action) => {
   switch (action.type) {
@@ -122,6 +125,30 @@ export const reducer = (state = defaultState, action) => {
         })
       }
 
+    case CREATE_ARTICLE:
+      return {
+        ...state,
+        articles: [action.payload, ...state.articles]
+      }
+
+    case DELETE_ARTICLE:
+      return {
+        ...state,
+        articles: state.articles.filter(el => el.slug !== action.payload)
+      }
+
+    case EDIT_ARTICLE:
+      return {
+        ...state,
+        articles: state.articles.map(el => {
+          if (el.slug === action.payload.slug) {
+            return action.payload.data.article
+          } else {
+            return el
+          }
+        })
+      }
+
     default:
       return state
   }
@@ -137,3 +164,6 @@ export const setUserAction = (payload) => ({type: SET_USER, payload})
 export const logOutAction = () => ({type: LOG_OUT})
 export const setErrorAction = () => ({type: SET_ERROR})
 export const setLikeAction = (payload) => ({type: SET_LIKE, payload})
+export const createArticleAction = (payload) => ({type: CREATE_ARTICLE, payload})
+export const deleteArticleAction = (payload) => ({type: DELETE_ARTICLE, payload})
+export const editArticleAction = (payload) => ({type: EDIT_ARTICLE, payload})

@@ -1,6 +1,5 @@
 import React from 'react';
 import classes from './ArticlePage.module.scss'
-import Article from "../Article/Article";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchArticle} from "../asyncActions/articles";
 import Loader from "../Loader/Loader";

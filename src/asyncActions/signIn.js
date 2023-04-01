@@ -1,4 +1,4 @@
-import {setErrorAction, signInAction, signUpAction} from "../reducer";
+import {setErrorAction, signInAction} from "../reducer";
 
 export const fetchSignIn = (data) => {
   const user = {

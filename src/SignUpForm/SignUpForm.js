@@ -8,7 +8,7 @@ import {useDispatch} from "react-redux";
 
 
 const SignUpForm = () => {
-  const {register, handleSubmit, setError, watch, formState: {errors}} = useForm({mode: 'onChange'})
+  const {register, handleSubmit, watch, formState: {errors}} = useForm({mode: 'onChange'})
   const dispatch = useDispatch();
   const onSubmit = data => {
     dispatch(fetchSignUp({

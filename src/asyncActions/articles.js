@@ -1,4 +1,11 @@
-import {getArticleDataAction, getDataAction, setLikeAction, startLoadingAction} from "../reducer";
+import {
+  createArticleAction,
+  deleteArticleAction, editArticleAction,
+  getArticleDataAction,
+  getDataAction,
+  setLikeAction,
+  startLoadingAction
+} from "../reducer";
 
 export const fetchArticles = (page, token) => {
   const offset = (page - 1) * 5
@@ -88,5 +95,70 @@ export const removeLike = (slug, token) => {
       .catch(error => {
         throw new Error(error)
       })
+  }
+}
+
+export const createArticle = (data, token) => {
+  const article = {
+    title: data.title,
+    description: data.description,
+    body: data.text,
+    tagList: data.tags,
+  }
+
+
+  return (dispatch) => {
+    fetch('https://api.realworld.io/api/articles', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Token ${token}`,
+        'Content-Type': 'application/json;charset=utf-8',
+      },
+      body: JSON.stringify({article: article})
+    })
+      .then(res => res.json())
+      .then(json => {
+        dispatch(createArticleAction(json.article))
+      })
+      .catch(error => {
+        throw new Error(error)
+      })
+  }
+}
+
+export const deleteArticle = (slug, token) => {
+  return (dispatch) => {
+    fetch(`https://api.realworld.io/api/articles/${slug}`, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Token ${token}`,
+      }
+    })
+      .then((res) => {
+        if (res.ok) {
+          dispatch(deleteArticleAction(slug))
+        }
+      })
+  }
+}
+
+export const editArticle = (slug, token, data) => {
+  const article = {
+    title: data.title,
+    description: data.description,
+    body: data.text,
+    tagList: data.tags,
+  }
+  return (dispatch) => {
+    fetch(`https://api.realworld.io/api/articles/${slug}`, {
+      method: 'PUT',
+      headers: {
+        'Authorization': `Token ${token}`,
+        'Content-Type': 'application/json;charset=utf-8',
+      },
+      body: JSON.stringify({article: article})
+    })
+      .then(res => res.json())
+      .then(json => dispatch(editArticleAction({data: json, slug: slug})))
   }
 }
