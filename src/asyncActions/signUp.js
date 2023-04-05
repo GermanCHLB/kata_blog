@@ -14,11 +14,15 @@ export const fetchSignUp = (data) => {
       },
       body: JSON.stringify({ user: user }),
     })
-      .then((res) => res.json())
+      .then((res) => {
+        if (res.ok) {
+          return res.json()
+        }
+      })
       .then((json) => {
         dispatch(signUpAction(json))
         localStorage.setItem('user', JSON.stringify(json))
       })
-      .catch((err) => console.log(err.body))
+      .catch((err) => console.log(err))
   }
 }

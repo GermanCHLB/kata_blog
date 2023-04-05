@@ -143,6 +143,10 @@ const NewArticleForm = ({
                         type="text"
                         value={el}
                         placeholder="Tag"
+                        className={errors[`tag-${index}`] ? classes.error : ''}
+                        {...register(`tag-${index}`, {
+                          required: 'Tag must not be empty',
+                        })}
                         onChange={(e) => {
                           setTags(
                             tags.map((el1, index1) => {
@@ -155,6 +159,11 @@ const NewArticleForm = ({
                           )
                         }}
                       />
+                      {errors[`tag-${index}`] ? (
+                        <p className={classes['error-message']}>{errors[`tag-${index}`].message}</p>
+                      ) : (
+                        ''
+                      )}
                       <button
                         className={classes['del-btn']}
                         onClick={(e) => {
@@ -173,6 +182,10 @@ const NewArticleForm = ({
                         type="text"
                         value={el}
                         placeholder="Tag"
+                        className={errors[`tag-${index}`] ? classes.error : ''}
+                        {...register(`tag-${index}`, {
+                          required: 'Tag must not be empty',
+                        })}
                         onChange={(e) => {
                           setTags(
                             tags.map((el1, index1) => {
@@ -185,6 +198,11 @@ const NewArticleForm = ({
                           )
                         }}
                       />
+                      {errors[`tag-${index}`] ? (
+                        <p className={classes['error-message']}>{errors[`tag-${index}`].message}</p>
+                      ) : (
+                        ''
+                      )}
                       <button
                         className={classes['del-btn']}
                         onClick={(e) => {
